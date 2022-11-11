@@ -14,6 +14,8 @@ import '../../../resources/views_manager.dart';
 import '../../../util/util_manager.dart';
 import 'package:quran/quran.dart' as quran;
 
+import 'faqra_view/faqra_view.dart';
+
 class AllJozView extends StatelessWidget {
   AllJozView({Key? key}) : super(key: key);
   String searchKey = "";
@@ -65,13 +67,7 @@ class AllJozView extends StatelessWidget {
   Widget buildOneJoz(int i, context) => SizedBox(
         height: 100,
         child: InkWell(
-          onTap: () {
-            ViewsManager.QuranContentWB(context, jozToFaqra(i));
-            HomeBloc.get(context).changeLastJozRead(CacheLastJozModel(
-                i,
-                jozToFaqra(i).listSurah[0].id,
-                jozToFaqra(i).listSurah[0].ayaStart));
-          },
+          onTap: () => openJoz(context, i),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -130,6 +126,15 @@ class AllJozView extends StatelessWidget {
         "last read",
         style: TextStyle(color: Colors.lightGreen),
       );
+
+  // void open joz
+  void openJoz(context, int i) {
+    FaqraData faqraData = FaqraData(jozToFaqra(i), FaqraType.joz, 0); //todo
+    ViewsManager.QuranContentWB(context, faqraData);
+    // cache last joz
+    HomeBloc.get(context).changeLastJozRead(CacheLastJozModel(
+        i, jozToFaqra(i).listSurah[0].id, jozToFaqra(i).listSurah[0].ayaStart));
+  }
 
   final List<String> jozNames = [
     '',

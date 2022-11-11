@@ -5,6 +5,7 @@ import 'package:khetma/app/temp_data.dart';
 import 'package:khetma/controllers/home/home_bloc.dart';
 import 'package:khetma/domain/models/cache_models.dart';
 import 'package:khetma/presentation/util/util_manager.dart';
+import 'package:khetma/presentation/views/quran/views/faqra_view/faqra_view.dart';
 
 import '../../../../controllers/quran/quran_bloc.dart';
 import '../../../../domain/models/faqra.dart';
@@ -58,15 +59,7 @@ class AllSurahView extends StatelessWidget {
   Widget buildOneSurah(int sorahNumb, context) => SizedBox(
         height: 100,
         child: InkWell(
-          onTap: () {
-            ViewsManager.QuranContentWB(
-                context,
-                FaqraModel([
-                  FaqraSurahModel(sorahNumb, 1, quran.getVerseCount(sorahNumb))
-                ]));
-            HomeBloc.get(context)
-                .changeLastSurahRead(CacheLastSurahModel(sorahNumb, 1));
-          },
+          onTap: () => openSurah(context, sorahNumb),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -145,5 +138,19 @@ class AllSurahView extends StatelessWidget {
   bool isInSearch(int i) {
     return (quran.getSurahNameArabic(i).toString().contains(searchKey) ||
         quran.getSurahName(i).toString().toLowerCase().contains(searchKey));
+  }
+
+  void openSurah(context, sorahNumb) {
+    // cache block
+    HomeBloc cache = HomeBloc.get(context);
+    // content
+    var faqra = FaqraModel(
+        [FaqraSurahModel(sorahNumb, 1, quran.getVerseCount(sorahNumb))]);
+    // last scroll position
+    double lastPsition = cache.lastSurahModel?.offset ?? 0;
+    FaqraData faqraData = FaqraData(faqra, FaqraType.surah, lastPsition);
+    // open qurane view
+    ViewsManager.QuranContentWB(context, faqraData);
+    cache.changeLastSurahRead(CacheLastSurahModel(sorahNumb, 1, 0));
   }
 }

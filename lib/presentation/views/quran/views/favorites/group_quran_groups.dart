@@ -6,6 +6,7 @@ import 'package:khetma/presentation/util/util_manager.dart';
 import 'package:quran/quran.dart' as quran;
 import '../../../../../controllers/home/home_bloc.dart';
 import '../../../../../domain/models/faqra.dart';
+import '../faqra_view/faqra_view.dart';
 
 class QuranMyGroup extends StatelessWidget {
   QuranMyGroup({Key? key}) : super(key: key);
@@ -40,7 +41,8 @@ class QuranMyGroup extends StatelessWidget {
             builder: (context, state) {
               return ListView.separated(
                   shrinkWrap: true,
-                  itemBuilder: (c, i) => build1Group(_bloc.allGroups.listGroups[i], i, c),
+                  itemBuilder: (c, i) =>
+                      build1Group(_bloc.allGroups.listGroups[i], i, c),
                   separatorBuilder: (c, i) => Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: Container(
@@ -148,8 +150,12 @@ class QuranMyGroup extends StatelessWidget {
     ViewsManager.addNewGroup(context, groupIndex: index);
   }
 
+  // open group
   void openGroup(context, int index) {
-    ViewsManager.QuranContentWB(context, _bloc.allGroups.listGroups[index].faqraModel);
+    FaqraData faqraData =
+        FaqraData(_bloc.allGroups.listGroups[index].faqraModel, FaqraType.werd,0); //todo
+    ViewsManager.QuranContentWB(context, faqraData);
+    // cache
     _bloc.changeLastGroupRead(CacheLastGroupModel(index));
   }
 

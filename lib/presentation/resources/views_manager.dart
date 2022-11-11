@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:khetma/presentation/views/quran/views/faqra_view/faqra_view.dart';
 import '../../domain/models/faqra.dart';
 import 'routes_maneger.dart';
 
@@ -30,8 +31,8 @@ class ViewsManager {
   // NOTE : "WB" (with back) in the end of function name that mean you can use back button
 
   // quran content
-  static void QuranContentWB(context, FaqraModel faqraModel) {
-    _openViewWithBack(context, Routes.surahView, arguments: faqraModel);
+  static void QuranContentWB(context, FaqraData faqraData) {
+    _openViewWithBack(context, Routes.surahView, arguments: faqraData);
   }
 
   // add or edit new group

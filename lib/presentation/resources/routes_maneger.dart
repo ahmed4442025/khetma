@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:khetma/presentation/temp/temp2.dart';
-import 'package:khetma/presentation/views/quran/faqra_view.dart';
+import 'package:khetma/presentation/views/quran/views/faqra_view/faqra_view.dart';
 
 import '../../domain/models/faqra.dart';
 import '../temp/temp.dart';
@@ -35,7 +35,7 @@ class RouteGenerator {
       case Routes.surahView:
         return MaterialPageRoute(
             builder: (_) => FaqraView(
-                  faqraModel: settings.arguments as FaqraModel,
+                  faqraData: settings.arguments as FaqraData,
                 ));
       case Routes.addNewGroupView:
         return MaterialPageRoute(

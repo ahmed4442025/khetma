@@ -6,21 +6,25 @@ part 'cache_models.g.dart';
 class CacheLastSurahModel {
   int? id;
   int? aya;
+  double? offset;
 
 
-  CacheLastSurahModel(this.id, this.aya);
+  CacheLastSurahModel(this.id, this.aya, this.offset);
 
   CacheLastSurahModel.fromJson(Map<String, dynamic> json) {
     id = json["id"];
     aya = json["aya"];
+    offset = json["offset"];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = {};
     data["id"] = id;
     data["aya"] = aya;
+    data["offset"] = offset;
     return data;
   }
+
 }
 
 class CacheLastJozModel {
@@ -48,7 +52,6 @@ class CacheLastJozModel {
 
 class CacheLastGroupModel {
   int? id;
-
 
   CacheLastGroupModel(this.id);
 

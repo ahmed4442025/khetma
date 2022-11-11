@@ -60,7 +60,6 @@ class QuranBloc extends Bloc<QuranEvent, QuranState> {
   }
 
   Duration? timeToScroll(AutoScrollController controller) {
-    print(_speedSlider);
     if (_speedSlider <= _sliderSpeedMaxValue / 30) return null;
     double diff = controller.position.maxScrollExtent - controller.offset;
     int mSec = diff ~/ _speedSlider;

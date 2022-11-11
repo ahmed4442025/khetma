@@ -2,7 +2,6 @@ import 'package:chips_choice/chips_choice.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:khetma/presentation/resources/font_manager.dart';
-import 'package:khetma/presentation/resources/theme_manager.dart';
 import 'package:khetma/presentation/resources/views_manager.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
@@ -11,7 +10,9 @@ import '../../../../controllers/quran/quran_bloc.dart';
 import '../../../util/util_manager.dart';
 
 class MiniSetting extends StatelessWidget {
-  MiniSetting({Key? key}) : super(key: key);
+  void Function() backVoid;
+
+  MiniSetting({Key? key, required this.backVoid}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -51,20 +52,18 @@ class MiniSetting extends StatelessWidget {
         ),
       );
 
-  Widget backBT(context) => Container(
-    child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            InkWell(
-              onTap: ()  => ViewsManager.backIfUCan(context),
-              child:  const Icon(
-                Icons.arrow_back_ios_new_rounded,
-                color: Colors.blue,
-              ),
+  Widget backBT(context) => Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          InkWell(
+            onTap: () => onBack(context),
+            child: const Icon(
+              Icons.arrow_back_ios_new_rounded,
+              color: Colors.blue,
             ),
-          ],
-        ),
-  );
+          ),
+        ],
+      );
 
   Widget chiceFont(context) => BlocBuilder<QuranBloc, QuranState>(
         buildWhen: (p, c) => c is QSFontFamily,
@@ -132,4 +131,10 @@ class MiniSetting extends StatelessWidget {
           );
         },
       );
+
+  // on back
+  void onBack(context) {
+    backVoid();
+    ViewsManager.backIfUCan(context);
+  }
 }

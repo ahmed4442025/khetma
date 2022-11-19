@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:khetma/presentation/temp/temp2.dart';
 import 'package:khetma/presentation/views/quran/views/faqra_view/faqra_view.dart';
 
-import '../../domain/models/faqra.dart';
 import '../temp/temp.dart';
 import '../views/home/home_view.dart';
+import '../views/quran/views/faqra_view/faqra_view_model.dart';
 import '../views/quran/views/favorites/add_group.dart';
 import '../views/splash_screen.dart';
 import 'strings_manager.dart';

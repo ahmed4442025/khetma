@@ -6,7 +6,7 @@ import 'package:khetma/presentation/util/util_manager.dart';
 import 'package:quran/quran.dart' as quran;
 import '../../../../../controllers/home/home_bloc.dart';
 import '../../../../../domain/models/faqra.dart';
-import '../faqra_view/faqra_view.dart';
+import '../faqra_view/faqra_view_model.dart';
 
 class QuranMyGroup extends StatelessWidget {
   QuranMyGroup({Key? key}) : super(key: key);

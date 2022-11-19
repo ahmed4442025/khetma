@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:khetma/presentation/views/quran/views/faqra_view/faqra_view.dart';
 import '../../domain/models/faqra.dart';
+import '../views/quran/views/faqra_view/faqra_view_model.dart';
 import 'routes_maneger.dart';
 
 class ViewsManager {

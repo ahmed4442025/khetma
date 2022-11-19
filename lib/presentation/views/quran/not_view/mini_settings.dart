@@ -1,7 +1,6 @@
 import 'package:chips_choice/chips_choice.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:khetma/presentation/resources/font_manager.dart';
 import 'package:khetma/presentation/resources/views_manager.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
@@ -33,10 +32,13 @@ class MiniSetting extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text("نوع الخط : "),
-                  SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: chiceFont(context))
+                  const Expanded(flex: 2, child: Text("نوع الخط : ")),
+                  Expanded(
+                    flex: 7,
+                    child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: choiceFontFamily(context)),
+                  )
                 ],
               ),
               Row(
@@ -65,29 +67,28 @@ class MiniSetting extends StatelessWidget {
         ],
       );
 
-  Widget chiceFont(context) => BlocBuilder<QuranBloc, QuranState>(
+  Widget choiceFontFamily(context) => BlocBuilder<QuranBloc, QuranState>(
         buildWhen: (p, c) => c is QSFontFamily,
         builder: (context, state) {
           return ChipsChoice.single(
             value: QuranBloc.get(context).fontFamily,
             onChanged: (v) {
-              print(v);
-              QuranBloc.get(context).changeFamilyFont(v);
+              QuranBloc.get(context).changeFamilyFont(v as String);
             },
-            choiceItems: [
-              oneChoice(FontConstant.fontUthmani2, "عثماني"),
-              oneChoice(FontConstant.fontHafss, "حفص"),
-              oneChoice(FontConstant.fontAmiri, "اميري"),
-            ],
+            choiceItems: QuranBloc.get(context)
+                .fontList
+                .map((e) => oneChoice(e))
+                .toList(),
             choiceStyle: const C2ChipStyle(checkmarkColor: Colors.cyanAccent),
           );
         },
       );
 
-  C2Choice oneChoice(String value, String lable) => C2Choice(
-        value: value,
-        label: lable,
-        style: C2ChipStyle(foregroundStyle: TextStyle(fontFamily: value)),
+  C2Choice oneChoice(FontModel fontModel) => C2Choice(
+        value: fontModel.family,
+        label: fontModel.name,
+        style: C2ChipStyle(
+            foregroundStyle: TextStyle(fontFamily: fontModel.family)),
       );
 
   // ----------------- slider font -----------------
@@ -137,4 +138,11 @@ class MiniSetting extends StatelessWidget {
     backVoid();
     ViewsManager.backIfUCan(context);
   }
+}
+
+class FontModel {
+  String family;
+  String name;
+
+  FontModel(this.family, this.name);
 }

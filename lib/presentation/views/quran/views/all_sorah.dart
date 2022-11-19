@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:khetma/app/temp_data.dart';
 import 'package:khetma/controllers/home/home_bloc.dart';
 import 'package:khetma/domain/models/cache_models.dart';
 import 'package:khetma/presentation/util/util_manager.dart';
-import 'package:khetma/presentation/views/quran/views/faqra_view/faqra_view.dart';
+import 'package:khetma/presentation/views/quran/views/faqra_view/faqra_view_model.dart';
 
 import '../../../../controllers/quran/quran_bloc.dart';
 import '../../../../domain/models/faqra.dart';
@@ -147,10 +146,12 @@ class AllSurahView extends StatelessWidget {
     var faqra = FaqraModel(
         [FaqraSurahModel(sorahNumb, 1, quran.getVerseCount(sorahNumb))]);
     // last scroll position
-    double lastPsition = cache.lastSurahModel?.offset ?? 0;
-    FaqraData faqraData = FaqraData(faqra, FaqraType.surah, lastPsition);
+    double lastPosition = cache.lastSurahModel?.offset ?? 0;
+    // if it's not same surah reset position to => 0
+    if (cache.lastSurahModel?.id != sorahNumb) lastPosition = 0;
+    FaqraData faqraData = FaqraData(faqra, FaqraType.surah, lastPosition);
     // open qurane view
     ViewsManager.QuranContentWB(context, faqraData);
-    cache.changeLastSurahRead(CacheLastSurahModel(sorahNumb, 1, 0));
+    cache.changeLastSurahRead(CacheLastSurahModel(sorahNumb, 1, lastPosition));
   }
 }

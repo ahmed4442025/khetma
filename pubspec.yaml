@@ -20,7 +20,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.19.0-255.2.beta <3.0.0'
+  sdk: '>=2.18.4 <3.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -37,25 +37,27 @@ dependencies:
   bloc: ^8.1.0                   # bloc
   # ---------------------------------------------------------------------------
   # storage
-  shared_preferences: ^2.0.13    # small local storage
+  shared_preferences: ^2.0.15    # small local storage
   # ---------------------------------------------------------------------------
   dartz: ^0.10.1                 # Either <l,r> return 2 types
   get_it: ^7.2.0                 # init all class in one place
-  quran: ^1.1.4                  # quran
-  flutter_svg: ^1.1.5            # open svg images
-  syncfusion_flutter_sliders: ^20.3.50 # slider
-  syncfusion_flutter_core: ^20.3.50    # slider core
+  quran: ^1.1.6                  # quran
+  flutter_svg: ^1.1.6            # open svg images
+  syncfusion_flutter_sliders: ^20.3.57 # slider
+  syncfusion_flutter_core: ^20.3.57    # slider core
   chips_choice: ^3.0.0           # multi choice chips
-  scroll_to_index: ^3.0.1        # auto scroll
+  scroll_to_index: any        # auto scroll
   bottom_navy_bar: ^6.0.0        # bottom_navy_bar
   bottom_drawer: ^0.0.5          # bottom_drawer
   dio: ^4.0.6
-  json_serializable: ^6.5.4     # obj to json
+  json_serializable: any     # obj to json
 
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.5
+  visibility_detector: ^0.3.3
+  geocoding: ^2.0.5
 
 
 dev_dependencies:

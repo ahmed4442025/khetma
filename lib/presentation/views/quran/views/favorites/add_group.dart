@@ -139,7 +139,8 @@ class _AddNewGroupViewState extends State<AddNewGroupView> {
             ayaEnd = e.ayaEnd;
           }
           setState(() {});
-          print("ayaStart : $ayaStart , ayaEnd : $ayaEnd, surah id : ${currentSurah?.id}");
+          print(
+              "ayaStart : $ayaStart , ayaEnd : $ayaEnd, surah id : ${currentSurah?.id}");
         },
         onDeleted: () {
           _myGroup.faqraModel.listSurah.removeAt(index);
@@ -304,9 +305,7 @@ class _AddNewGroupViewState extends State<AddNewGroupView> {
                     value: item,
                     child: Text(
                       item.toString(),
-                      style: const TextStyle(
-                        fontSize: 14,
-                      ),
+                      style: const TextStyle(fontSize: 14),
                     ),
                   ))
               .toList(),

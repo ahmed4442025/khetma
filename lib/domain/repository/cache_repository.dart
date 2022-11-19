@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:khetma/domain/models/cache_models.dart';
-import 'package:khetma/domain/models/faqra.dart';
 
 import '../../data/common/error_handler/failure.dart';
 
@@ -13,6 +12,11 @@ abstract class CacheRepository {
   Either<Failure, CacheLastJozModel?> getJozLastSeen();
 
   Either<Failure, CacheAllGroupModel> getAllGroups();
+
+  // font
+  Either<Failure, double> getFontSize();
+
+  Either<Failure, String> getFontFamily();
 
   // set
 
@@ -27,4 +31,8 @@ abstract class CacheRepository {
 
   Future<Either<Failure, bool>> setAllGroups(
       CacheAllGroupModel cacheAllGroupModel);
+  // font
+  Future<Either<Failure, bool>> setFontSize(double size);
+
+  Future<Either<Failure, bool>> setFontFamily(String family);
 }

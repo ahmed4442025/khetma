@@ -3,18 +3,28 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:khetma/presentation/resources/assets_manager.dart';
 import 'package:khetma/presentation/resources/styles_manager.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
-import '../../../../controllers/quran/quran_bloc.dart';
-import '../../../../domain/models/faqra.dart';
-import '../../../resources/font_manager.dart';
-import '../../../util/util_manager.dart';
+import '../../../../../controllers/quran/quran_bloc.dart';
+import '../../../../../domain/models/faqra.dart';
+import '../../../../resources/font_manager.dart';
+import '../../../../util/util_manager.dart';
 import 'package:quran/quran.dart' as quran;
+
+import '../../views/faqra_view/surah_key_manager.dart';
 
 class SurahContent extends StatelessWidget {
   final FaqraSurahModel surah;
   final AutoScrollController controller;
+  final SurahKeyManager keyManager;
+  final int werdIndex;
 
-  const SurahContent({Key? key, required this.surah, required this.controller})
+  SurahContent(
+      {Key? key,
+      required this.surah,
+      required this.controller,
+      required this.keyManager,
+      this.werdIndex = 0})
       : super(key: key);
 
   @override
@@ -81,8 +91,9 @@ class SurahContent extends StatelessWidget {
         ],
       );
 
+  // surah title
   Widget border(BuildContext context) =>
-      oneTage(QuranBloc.get(context).indexOfAya(surah.id, 0),
+      oneTage(keyManager.indexOfAya(surah.id, 0, werdIndex),
           child: Container(
               decoration: BoxDecoration(
                 border: Border.all(color: const Color(0xff000000), width: 2),
@@ -131,7 +142,7 @@ class SurahContent extends StatelessWidget {
                 // TextSpan(text: quran.getVerseEndSymbol(i)),
                 WidgetSpan(
                     child: oneTage(
-                  QuranBloc.get(context).indexOfAya(surah.id, i),
+                  keyManager.indexOfAya(surah.id, i, werdIndex),
                   child: Text(getVerseEndSymbol(i),
                       style: StylesManager.quranTextStyle(
                           QuranBloc.get(context).fontValue,
@@ -145,11 +156,19 @@ class SurahContent extends StatelessWidget {
     );
   }
 
-  Widget oneTage(int index, {Widget? child}) => AutoScrollTag(
+  Widget oneTage(int index, {Widget? child}) => VisibilityDetector(
         key: ValueKey("key$index"),
-        index: index,
-        controller: controller,
-        child: child,
+        onVisibilityChanged: (VisibilityInfo info) {
+          // log("${info.visibleFraction} of my widget is visible");
+          var visiblePercentage = info.visibleFraction * 100;
+          debugPrint('Widget ${index} is $visiblePercentage% visible ');
+        },
+        child: AutoScrollTag(
+          key: ValueKey("key$index"),
+          index: index,
+          controller: controller,
+          child: child,
+        ),
       );
 
   String getVerseEndSymbol(int verseNumber, {bool useSymbol = true}) {

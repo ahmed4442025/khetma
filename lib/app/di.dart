@@ -1,6 +1,5 @@
 import 'package:get_it/get_it.dart';
 import 'package:khetma/controllers/home/home_bloc.dart';
-import 'package:khetma/data/data_source/shared_pref/shared_pref_data_source.dart';
 import 'package:khetma/data/repository/cache_repo_shared_pref.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -12,17 +11,21 @@ Future<void> initAppModule() async {
   // app module, its a module where we put all generic dependencies
 
   // shared prefs instance
+  print("before");
   SharedPreferences shared = await SharedPreferences.getInstance();
+  print("after");
+
+  // shared.clear();
 
   // repo cache
-  instance.registerLazySingleton(() => SharedPrefDSImpl(shared));
+  instance.registerLazySingleton(() => shared);
 
   instance.registerLazySingleton(
-      () => CacheRepoSharedPref(instance<SharedPrefDSImpl>()));
+      () => CacheRepoSharedPref(instance<SharedPreferences>()));
 
   // blocs
-  instance.registerLazySingleton(() => QuranBloc());
-  instance<QuranBloc>().init();
+  instance.registerLazySingleton(() => QuranBloc(instance<CacheRepoSharedPref>()));
+  await instance<QuranBloc>().init();
   instance
       .registerLazySingleton(() => HomeBloc(instance<CacheRepoSharedPref>()));
   instance<HomeBloc>().init();

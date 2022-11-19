@@ -15,7 +15,6 @@ class _SplashPageState extends State<SplashPage> {
   Timer? _timer1;
 
   _startDelay() {
-
     _timer1 = Timer(const Duration(seconds: AppConstants.splashDelay), _goNext);
   }
 
@@ -33,10 +32,10 @@ class _SplashPageState extends State<SplashPage> {
   Widget build(BuildContext context) {
     print("Splash View");
     return const Scaffold(
-        // backgroundColor: ColorManager.primary,
+      // backgroundColor: ColorManager.primary,
         body: Center(
-      child: Text("welcome"),
-    ));
+          child: Text("welcome"),
+        ));
   }
 
   @override

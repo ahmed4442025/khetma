@@ -1,9 +1,9 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:khetma/controllers/home/home_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../controllers/quran/quran_bloc.dart';
-import '../data/repository/cache_repo_shared_pref.dart';
 import '../presentation/resources/routes_maneger.dart';
 import '../presentation/resources/theme_manager.dart';
 import 'di.dart';
@@ -34,6 +34,7 @@ class _MyAppState extends State<MyApp> {
           stream: ThemeManager.outThemeChanged,
           builder: (context, snapshot) {
             return MaterialApp(
+                scrollBehavior: MyCustomScrollBehavior(),
                 debugShowCheckedModeBanner: false,
                 onGenerateRoute: RouteGenerator.getRoute,
                 initialRoute: Routes.firstScreen,
@@ -41,4 +42,16 @@ class _MyAppState extends State<MyApp> {
           }),
     );
   }
+}
+class MyCustomScrollBehavior extends MaterialScrollBehavior {
+  // Override behavior methods and getters like dragDevices
+  @override
+  Set<PointerDeviceKind> get dragDevices => {
+    PointerDeviceKind.touch,
+    PointerDeviceKind.mouse,
+    PointerDeviceKind.trackpad,
+    PointerDeviceKind.invertedStylus,
+    PointerDeviceKind.unknown,
+    // etc.
+  };
 }

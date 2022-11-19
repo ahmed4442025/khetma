@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:khetma/app/temp_data.dart';
 import 'package:khetma/controllers/home/home_bloc.dart';
 import 'package:khetma/domain/models/cache_models.dart';
 
@@ -14,7 +13,7 @@ import '../../../resources/views_manager.dart';
 import '../../../util/util_manager.dart';
 import 'package:quran/quran.dart' as quran;
 
-import 'faqra_view/faqra_view.dart';
+import 'package:khetma/presentation/views/quran/views/faqra_view/faqra_view_model.dart';
 
 class AllJozView extends StatelessWidget {
   AllJozView({Key? key}) : super(key: key);
